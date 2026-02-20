@@ -13,42 +13,45 @@
  * * No palindrome logic is implemented yet.
  * * The goal is to establish a clear startup flow.
  **/
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Scanner;
-import java.util.Stack;
 class PalindromeCheckerApp {
     /**
-     * Application entry point for UC6.
+     * Application entry point for UC7.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
         // Initialize Scanner for dynamic input
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
-        // Create a Queue to store characters in FIFO order
-        Queue<Character> queue = new LinkedList<>();
-        // Create a Stack to store characters in LIFO order
-        Stack<Character> stack = new Stack<>();
-        // Insert each character into both queue and stack
+
+        // Create a Deque to store characters
+        Deque<Character> deque = new ArrayDeque<>();
+
+        // Add each character to the deque
         for (char c : input.toCharArray()) {
-            queue.add(c);
-            stack.push(c);
+            deque.add(c);
         }
-        // Flag to track palindrome status
+
+        // Flag to track palindrome result
         boolean isPalindrome = true;
-        // Compare characters until the queue becomes empty
-        while (!queue.isEmpty()) {
-            // Queue removes from front (first char), Stack removes from top (last char)
-            if (!queue.remove().equals(stack.pop())) {
+
+        // Continue comparison while more than one element exists
+        while (deque.size() > 1) {
+            // Remove and compare the first and last elements
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
         }
-        // Display results as shown in snapshot
+
+        // Display results
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
+
         scanner.close();
     }
 }
