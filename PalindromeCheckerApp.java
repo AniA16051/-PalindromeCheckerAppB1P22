@@ -20,20 +20,18 @@ class PalindromeCheckerApp {
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        // Storing a predefined string
+
         String input = "madam";
         boolean isPalindrome = true;
 
-        // Loop only till half of the string length
         for (int i = 0; i < input.length() / 2; i++) {
-            // Compare characters from both ends
+  
             if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // Display the result on the console
         System.out.println("Input text: " + input);
         System.out.println("Is it a Palindrome? : " + isPalindrome);
     }
