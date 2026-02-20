@@ -15,27 +15,43 @@
  **/
 import java.util.Scanner;
 class PalindromeCheckerApp {
-
     /**
-     * Application entry point for UC3.
+     * Application entry point for UC4.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        // Predefined string for validation
-        String input = "madam";
-        String reversed = "";
+        // Initialize Scanner for user input
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter text to check: ");
+        String input = scanner.nextLine();
+        // Convert the string into a character array
+        char[] chars = input.toCharArray();
 
-        // Hint Implementation: Iterate from the last character to the first
-        for (int i = input.length() - 1; i >= 0; i--) {
-            // Build the reversed version
-            reversed += input.charAt(i);
+        // Initialize pointer at the beginning
+        int start = 0;
+
+        // Initialize pointer at the end
+        int end = chars.length - 1;
+
+        // Assume palindrome initially
+        boolean isPalindrome = true;
+
+        // Continue comparison until pointers cross
+        while (start < end) {
+            // Compare characters at current pointers
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
+                break;
+            }
+            // Move pointers towards the center
+            start++;
+            end--;
         }
 
-        // Compare original and reversed strings
-        boolean isPalindrome = input.equals(reversed);
+        // Displays the result
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + isPalindrome);
 
-        // Display results to the console
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        scanner.close();
     }
 }
