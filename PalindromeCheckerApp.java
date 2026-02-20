@@ -13,44 +13,42 @@
  * * No palindrome logic is implemented yet.
  * * The goal is to establish a clear startup flow.
  **/
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 class PalindromeCheckerApp {
     /**
-     * Application entry point for UC5.
+     * Application entry point for UC6.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
         // Initialize Scanner for dynamic input
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter text to check: ");
+        System.out.print("Enter text: ");
         String input = scanner.nextLine();
-
-        // Create a Stack to store characters
+        // Create a Queue to store characters in FIFO order
+        Queue<Character> queue = new LinkedList<>();
+        // Create a Stack to store characters in LIFO order
         Stack<Character> stack = new Stack<>();
-
-        // Push each character of the string into the stack
+        // Insert each character into both queue and stack
         for (char c : input.toCharArray()) {
+            queue.add(c);
             stack.push(c);
         }
-
-        // Assume palindrome initially
+        // Flag to track palindrome status
         boolean isPalindrome = true;
-
-        // Iterate again through original string and compare with popped characters
-        for (char c : input.toCharArray()) {
-            // Stack.pop() returns characters in reverse order of entry
-            if (c != stack.pop()) {
+        // Compare characters until the queue becomes empty
+        while (!queue.isEmpty()) {
+            // Queue removes from front (first char), Stack removes from top (last char)
+            if (!queue.remove().equals(stack.pop())) {
                 isPalindrome = false;
                 break;
             }
         }
-
-        // Display the results
+        // Display results as shown in snapshot
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
-
         scanner.close();
     }
 }
