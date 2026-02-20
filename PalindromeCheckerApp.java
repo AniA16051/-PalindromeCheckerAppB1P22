@@ -14,41 +14,40 @@
  * * The goal is to establish a clear startup flow.
  **/
 import java.util.Scanner;
+import java.util.Stack;
 class PalindromeCheckerApp {
     /**
-     * Application entry point for UC4.
+     * Application entry point for UC5.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
-        // Initialize Scanner for user input
+        // Initialize Scanner for dynamic input
         Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter text to check: ");
         String input = scanner.nextLine();
-        // Convert the string into a character array
-        char[] chars = input.toCharArray();
 
-        // Initialize pointer at the beginning
-        int start = 0;
+        // Create a Stack to store characters
+        Stack<Character> stack = new Stack<>();
 
-        // Initialize pointer at the end
-        int end = chars.length - 1;
+        // Push each character of the string into the stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
         // Assume palindrome initially
         boolean isPalindrome = true;
 
-        // Continue comparison until pointers cross
-        while (start < end) {
-            // Compare characters at current pointers
-            if (chars[start] != chars[end]) {
+        // Iterate again through original string and compare with popped characters
+        for (char c : input.toCharArray()) {
+            // Stack.pop() returns characters in reverse order of entry
+            if (c != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            // Move pointers towards the center
-            start++;
-            end--;
         }
 
-        // Displays the result
+        // Display the results
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + isPalindrome);
 
