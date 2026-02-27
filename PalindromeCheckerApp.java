@@ -43,6 +43,13 @@ class PalindromeCheckerApp {
         while (deque.size() > 1) {
             // Remove and compare the first and last elements
             if (!deque.removeFirst().equals(deque.removeLast())) {
+
+        String input = "madam";
+        boolean isPalindrome = true;
+
+        for (int i = 0; i < input.length() / 2; i++) {
+  
+            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
                 isPalindrome = false;
                 break;
             }
@@ -53,5 +60,7 @@ class PalindromeCheckerApp {
         System.out.println("Is Palindrome? : " + isPalindrome);
 
         scanner.close();
+        System.out.println("Input text: " + input);
+        System.out.println("Is it a Palindrome? : " + isPalindrome);
     }
 }
