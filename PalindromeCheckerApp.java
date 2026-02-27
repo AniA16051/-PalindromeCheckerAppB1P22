@@ -3,32 +3,40 @@ import java.util.Scanner;
 class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC10.
+     * Application entry point for UC11.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter text: ");
-        String input = scanner.nextLine();
+        String userInput = scanner.nextLine();
 
-        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+        PalindromeService service = new PalindromeService();
 
-        boolean isPalindrome = true;
+        boolean isPalindrome = service.checkPalindrome(userInput);
 
 
-        for (int i = 0; i < normalized.length() / 2; i++) {
-            // Compare symmetric characters
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        System.out.println("Input : " + input);
-        System.out.println("Normalized : " + normalized);
-        System.out.println("Is Palindrome? : " + isPalindrome);
+        System.out.println("Input text: " + userInput);
+        System.out.println("Is it a Palindrome? : " + isPalindrome);
 
         scanner.close();
+    }
+}
+
+
+class PalindromeService {
+    public boolean checkPalindrome(String input) {
+        int start = 0;
+        int end = input.length() - 1;
+
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 }
