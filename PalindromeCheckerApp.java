@@ -1,41 +1,46 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 class PalindromeCheckerApp {
 
-    /**
-     * Application entry point for UC11.
-     * * @param args Command-line arguments
-     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Enter text: ");
-        String userInput = scanner.nextLine();
+        String input = scanner.nextLine();
 
-        PalindromeService service = new PalindromeService();
+        PalindromeStrategy strategy = new StackStrategy();
 
-        boolean isPalindrome = service.checkPalindrome(userInput);
+        boolean result = strategy.check(input);
 
-
-        System.out.println("Input text: " + userInput);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome (STCHECKAA)? : " + result);
 
         scanner.close();
     }
 }
 
 
-class PalindromeService {
-    public boolean checkPalindrome(String input) {
-        int start = 0;
-        int end = input.length() - 1;
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
+
+class StackStrategy implements PalindromeStrategy {
+
+
+    @Override
+    public boolean check(String input) {
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
