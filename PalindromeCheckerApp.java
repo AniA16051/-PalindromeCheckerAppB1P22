@@ -3,7 +3,7 @@ import java.util.Scanner;
 class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC9.
+     * Application entry point for UC10.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
@@ -12,23 +12,23 @@ class PalindromeCheckerApp {
         System.out.print("Enter text: ");
         String input = scanner.nextLine();
 
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        boolean isPalindrome = check(input, 0, input.length() - 1);
+        boolean isPalindrome = true;
+
+
+        for (int i = 0; i < normalized.length() / 2; i++) {
+            // Compare symmetric characters
+            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
+        }
 
         System.out.println("Input : " + input);
+        System.out.println("Normalized : " + normalized);
         System.out.println("Is Palindrome? : " + isPalindrome);
 
         scanner.close();
-    }
-
-    private static boolean check(String s, int start, int end) {
-        if (start >= end) {
-            return true;
-        }
-        if (s.charAt(start) != s.charAt(end)) {
-            return false; // Mismatch found
-        }
-
-        return check(s, start + 1, end - 1);
     }
 }
