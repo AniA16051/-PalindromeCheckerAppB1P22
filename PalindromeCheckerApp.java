@@ -1,58 +1,54 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC11.
+     * Application entry point for UC13.
      * * @param args Command-line arguments
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter text for benchmarking: ");
+        String input = scanner.nextLine();
 
-        System.out.print("Enter text: ");
-        String userInput = scanner.nextLine();
+        PalindromeStrategy strategy = new StackStrategy();
 
-        PalindromeService service = new PalindromeService();
+        long startTime = System.nanoTime();
 
-        boolean isPalindrome = service.checkPalindrome(userInput);
+        boolean result = strategy.check(input);
 
-        // Continue comparison while more than one element exists
-        while (deque.size() > 1) {
-            // Remove and compare the first and last elements
-            if (!deque.removeFirst().equals(deque.removeLast())) {
+        long endTime = System.nanoTime();
 
-        String input = "madam";
-        boolean isPalindrome = true;
+        long duration = endTime - startTime;
 
-        for (int i = 0; i < input.length() / 2; i++) {
-  
-            if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
-            }
-        }
-
-        System.out.println("Input text: " + userInput);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time: " + duration + " nanoseconds");
 
         scanner.close();
-        System.out.println("Input text: " + input);
-        System.out.println("Is it a Palindrome? : " + isPalindrome);
     }
 }
 
 
-class PalindromeService {
-    public boolean checkPalindrome(String input) {
-        int start = 0;
-        int end = input.length() - 1;
+interface PalindromeStrategy {
+    boolean check(String input);
+}
 
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
+
+class StackStrategy implements PalindromeStrategy {
+    @Override
+    public boolean check(String input) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
